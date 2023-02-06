@@ -11,7 +11,7 @@ namespace LinqExstensions
         public static bool MyAll<T>(this IEnumerable<T> collection, Predicate<T> condition)
         {
             int count = 0;
-            if (collection.Count() == 0)
+            if (!collection.Any())
                 return true;
             foreach (var item in collection)
             {
@@ -29,7 +29,7 @@ namespace LinqExstensions
         }
         public static bool MyAny<T>(this IEnumerable<T> collection, Predicate<T> condition)
         {
-            if (collection.Count() == 0)
+            if (!collection.Any())
                 return false;
             foreach (var item in collection)
             {
@@ -40,17 +40,10 @@ namespace LinqExstensions
             }
             return false;
         }
-        public static bool MyAny<T>(this IEnumerable<T> collection)
-        {
-            if (collection.Count() == 0)
-                return false;
-            else
-                return true;
-        }
         public static T MySingle<T>(this IEnumerable<T> collection, Predicate<T> condition)
         {
             int count = 0;
-            if (collection.Count() == 0)
+            if (!collection.Any())
                 throw new InvalidOperationException("No matching elements");
             T returnItem = default;
             foreach (var item in collection)
